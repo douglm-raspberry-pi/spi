@@ -1,0 +1,74 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>org.douglm</groupId>
+    <artifactId>r-pi-parent</artifactId>
+    <version>1-SNAPSHOT</version>
+  </parent>
+
+  <artifactId>spi</artifactId>
+  <version>1.0.0-SNAPSHOT</version>
+
+  <name>Support for spi</name>
+  <description>Support for spi on the Raspberrry Pi</description>
+  <url>https://github.com/douglm-raspberry-pi/spi</url>
+
+  <properties>
+    <r-pi.releases.repo.id>central</r-pi.releases.repo.id>
+    <r-pi.releases.repo.url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</r-pi.releases.repo.url>
+    <r-pi.snapshots.repo.id>central</r-pi.snapshots.repo.id>
+    <r-pi.snapshots.repo.url>https://central.sonatype.com/repository/maven-snapshots/</r-pi.snapshots.repo.url>
+  </properties>
+
+  <scm>
+    <connection>scm:git:git@github.com:douglm-raspberry-pi/spi.git</connection>
+    <developerConnection>scm:git:git@github.com:douglm-raspberry-pi/spi.git</developerConnection>
+    <url>https://github.com/douglm-raspberry-pi/spi</url>
+  </scm>
+
+  <repositories>
+    <repository>
+      <releases>
+        <enabled>false</enabled>
+        <updatePolicy>never</updatePolicy>
+      </releases>
+      <snapshots>
+        <enabled>false</enabled>
+        <updatePolicy>never</updatePolicy>
+      </snapshots>
+      <id>${r-pi.snapshots.repo.id}</id>
+      <name>r-pi Snapshots Repository</name>
+      <url>${r-pi.snapshots.repo.url}</url>
+      <layout>default</layout>
+    </repository>
+  </repositories>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.bedework</groupId>
+      <artifactId>bw-base</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.bedework</groupId>
+      <artifactId>bw-util-logging</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>com.pi4j</groupId>
+      <artifactId>pi4j-core</artifactId>
+    </dependency>
+
+    <!-- include Pi4J Plugins (Platforms and I/O Providers) -->
+    <dependency>
+      <groupId>com.pi4j</groupId>
+      <artifactId>pi4j-plugin-raspberrypi</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>com.pi4j</groupId>
+      <artifactId>pi4j-plugin-linuxfs</artifactId>
+    </dependency>
+  </dependencies>
+</project>
