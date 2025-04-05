@@ -27,22 +27,38 @@ public class SpiDevice implements Logged, AutoCloseable {
      Each digital board takes a 2 bit address allowing 4 boards per CS.
    */
   private final Context pi4j;
-  private final int address;
+  private final SpiDeviceConfig config;
   private Spi spi;
 
   public SpiDevice(final Context pi4j,
-                   final int address) {
+                   final SpiDeviceConfig config) {
     this.pi4j = pi4j;
-    this.address = address;
+    this.config = config;
   }
 
   public Context getContext() {
     return pi4j;
   }
 
+  public int transfer(final byte[] data) {
+    dumpBytes("before", data);
+    final var res = getSpi().transfer(data, data.length);
+    if (res >= 0) {
+      dumpBytes("after (" + res + ")", data);
+    } else {
+      debug("Bad result " + res);
+    }
+    return res;
+  }
+
   public Spi getSpi() {
     if (spi == null) {
-      createSpi();
+      final var reg = pi4j.registry();
+      if (reg.exists(config.getSpiName())) {
+        spi = pi4j.registry().get(config.getSpiName());
+      } else {
+        createSpi();
+      }
     }
     return spi;
   }
@@ -54,9 +70,10 @@ public class SpiDevice implements Logged, AutoCloseable {
   }
 
   protected void createSpi() {
-    final var config = Spi.newConfigBuilder(pi4j)
+    final var spiConfig = Spi.newConfigBuilder(pi4j)
+                          .id(config.getSpiName())
 //                          .address(address)
-                          .channel(address)
+                          .channel(config.getSpiAddress())
                           .build();
 
     /*
@@ -71,7 +88,7 @@ public class SpiDevice implements Logged, AutoCloseable {
     final var p = pi4j.spi();
     debug("Provider class {}", p.getClass().getName());
 
-    spi = p.create(config);
+    spi = p.create(spiConfig);
   }
 
   protected void dumpBytes(final String s,final byte[] data) {
