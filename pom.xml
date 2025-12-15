@@ -14,36 +14,6 @@
   <description>Support for spi on the Raspberrry Pi</description>
   <url>https://github.com/douglm-raspberry-pi/spi</url>
 
-  <properties>
-    <r-pi.releases.repo.id>central</r-pi.releases.repo.id>
-    <r-pi.releases.repo.url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</r-pi.releases.repo.url>
-    <r-pi.snapshots.repo.id>central</r-pi.snapshots.repo.id>
-    <r-pi.snapshots.repo.url>https://central.sonatype.com/repository/maven-snapshots/</r-pi.snapshots.repo.url>
-  </properties>
-
-  <scm>
-    <connection>scm:git:git@github.com:douglm-raspberry-pi/spi.git</connection>
-    <developerConnection>scm:git:git@github.com:douglm-raspberry-pi/spi.git</developerConnection>
-    <url>https://github.com/douglm-raspberry-pi/spi</url>
-  </scm>
-
-  <repositories>
-    <repository>
-      <releases>
-        <enabled>false</enabled>
-        <updatePolicy>never</updatePolicy>
-      </releases>
-      <snapshots>
-        <enabled>false</enabled>
-        <updatePolicy>never</updatePolicy>
-      </snapshots>
-      <id>${r-pi.snapshots.repo.id}</id>
-      <name>r-pi Snapshots Repository</name>
-      <url>${r-pi.snapshots.repo.url}</url>
-      <layout>default</layout>
-    </repository>
-  </repositories>
-
   <dependencies>
     <dependency>
       <groupId>org.bedework</groupId>
